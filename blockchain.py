@@ -13,10 +13,19 @@ def add_block(tx_amount, last_block):
 
 
 while True:
-    user_input = input('Enter next TX amount: ')
-    if not user_input.isdigit() or float(user_input) < 0:
-        continue
+    user_input = input('Enter next TX amount or command: ')
+
+    # string value entered
+    if not user_input.isdigit():
+        if user_input == 'q':
+            break
+        else:
+            continue
+
+    # numeric value entered
     new_tx_amount = float(user_input)
+    if new_tx_amount < 0:
+        continue
     if new_tx_amount:
         if not blockchain:
             blockchain.append(new_tx_amount)
