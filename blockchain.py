@@ -24,8 +24,6 @@ while True:
 
     # numeric value entered
     new_tx_amount = float(user_input)
-    if new_tx_amount < 0:
-        continue
     if new_tx_amount:
         if not blockchain:
             blockchain.append(new_tx_amount)
