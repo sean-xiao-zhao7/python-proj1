@@ -1,8 +1,14 @@
 blockchain = [0]
 
 
+def last_value():
+    """get last value of blockchain"""
+    return blockchain[-1]
+
+
 def add_value(tx_amount):
-    blockchain.append([blockchain[-1], 5.3])
+    """add a single block"""
+    blockchain.append([last_value(), tx_amount])
     print(blockchain)
 
 
