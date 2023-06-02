@@ -1,5 +1,5 @@
-new_tx_amount = float(input('Enter initial TX amount: '))
-blockchain = [new_tx_amount]
+import numbers
+blockchain = []
 
 
 def get_last_block():
@@ -13,7 +13,13 @@ def add_block(tx_amount, last_block):
 
 
 while True:
-    new_tx_amount = float(input('Enter next TX amount: '))
-    if (new_tx_amount):
-        add_block(last_block=get_last_block(), tx_amount=new_tx_amount)
+    user_input = input('Enter next TX amount: ')
+    if not user_input.isdigit() or float(user_input) < 0:
+        continue
+    new_tx_amount = float(user_input)
+    if new_tx_amount:
+        if not blockchain:
+            blockchain.append(new_tx_amount)
+        else:
+            add_block(last_block=get_last_block(), tx_amount=new_tx_amount)
         print(blockchain)
