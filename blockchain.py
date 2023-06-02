@@ -1,4 +1,5 @@
-blockchain = [0]
+new_tx_amount = float(input('Enter initial TX amount: '))
+blockchain = [new_tx_amount]
 
 
 def get_last_block():
@@ -11,7 +12,8 @@ def add_block(tx_amount, last_block):
     blockchain.append([last_block, tx_amount])
 
 
-add_block(1, get_last_block())
-add_block(2, get_last_block())
-add_block(last_block=get_last_block(), tx_amount=3)
-print(blockchain)
+while True:
+    new_tx_amount = float(input('Enter next TX amount: '))
+    if (new_tx_amount):
+        add_block(last_block=get_last_block(), tx_amount=new_tx_amount)
+        print(blockchain)
