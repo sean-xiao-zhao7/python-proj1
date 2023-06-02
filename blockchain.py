@@ -13,5 +13,5 @@ def add_block(tx_amount, last_block):
 
 add_block(1, get_last_block())
 add_block(2, get_last_block())
-add_block(3, get_last_block())
+add_block(last_block=get_last_block(), tx_amount=3)
 print(blockchain)
