@@ -1,5 +1,6 @@
 import numbers
 blockchain = []
+open_txs = []
 
 
 def get_last_block():
@@ -10,6 +11,11 @@ def get_last_block():
 def add_block(tx_amount, last_block):
     """add a single block"""
     blockchain.append([last_block, tx_amount])
+
+
+def mine_block():
+    """ Mine a block """
+    pass
 
 
 while True:
