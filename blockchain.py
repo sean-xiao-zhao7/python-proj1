@@ -8,9 +8,13 @@ def get_last_block():
     return blockchain[-1]
 
 
-def add_block(tx_amount, last_block):
+def add_block(sender, recipient, tx_amount=1):
     """add a single block"""
-    blockchain.append([last_block, tx_amount])
+    open_txs.append({
+        'sender': sender,
+        'recipient': recipient,
+        'tx_amount': tx_amount
+    })
 
 
 def mine_block():
@@ -32,7 +36,7 @@ while True:
     new_tx_amount = float(user_input)
     if new_tx_amount:
         if not blockchain:
-            blockchain.append(new_tx_amount)
+            pass
         else:
-            add_block(last_block=get_last_block(), tx_amount=new_tx_amount)
+            pass
         print(blockchain)
