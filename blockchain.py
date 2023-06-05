@@ -1,6 +1,7 @@
 import numbers
 blockchain = []
 open_txs = []
+global_sender = 'test_sender'
 
 
 def get_last_block():
@@ -8,10 +9,10 @@ def get_last_block():
     return blockchain[-1]
 
 
-def add_block(sender, recipient, tx_amount=1):
+def add_block(recipient, tx_amount=1):
     """add a single block"""
     open_txs.append({
-        'sender': sender,
+        'sender': global_sender,
         'recipient': recipient,
         'tx_amount': tx_amount
     })
@@ -34,9 +35,12 @@ while True:
 
     # numeric value entered
     new_tx_amount = float(user_input)
-    if new_tx_amount:
+    new_tx_recipient = input('Enter recipient:')
+    if new_tx_amount and new_tx_recipient:
         if not blockchain:
             pass
         else:
-            pass
+            add_block(new_tx_recipient, new_tx_amount)
         print(blockchain)
+    else:
+        print('Invalid amount entered.')
