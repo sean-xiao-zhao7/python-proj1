@@ -22,6 +22,7 @@ def add_block(recipient, tx_amount=1):
         'tx_amount': tx_amount
     })
     mine_block()
+    return True
 
 
 def mine_block():
@@ -45,7 +46,7 @@ def verify_blockchain():
             prev_block = block
             continue
         else:
-            verified = str(prev_block.values()) == block.checkhash
+            verified = str(prev_block.values()) == block['checkhash']
     return verified
 
 
