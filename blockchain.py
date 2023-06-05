@@ -1,5 +1,8 @@
 import numbers
-blockchain = []
+blockchain = [{
+    'previous_hash': 'placeholder',
+    'txs': []
+}]
 open_txs = []
 global_sender = 'test_sender'
 
@@ -20,7 +23,10 @@ def add_block(recipient, tx_amount=1):
 
 def mine_block():
     """ Mine a block """
-    pass
+    blockchain.append({
+        'previous_hash': 'placeholder',
+        'txs': open_txs
+    })
 
 
 while True:
