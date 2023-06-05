@@ -39,15 +39,15 @@ def mine_block():
 
 def verify_blockchain():
     """ Make sure checkhash matches actual previous block content  """
-    verified = True
     prev_block = None
     for block in blockchain:
         if not prev_block:
             prev_block = block
             continue
         else:
-            verified = str(prev_block.values()) == block['checkhash']
-    return verified
+            if not str(prev_block.values()) == block['checkhash']:
+                return False
+    return True
 
 
 def print_blockchain():
