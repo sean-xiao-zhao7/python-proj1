@@ -1,9 +1,8 @@
-import numbers
 blockchain = [{
-    'previous_hash': 'placeholder',
+    'checkhash': 'genesis',
     'txs': []
 }]
-open_txs = []
+global_open_txs = []
 global_sender = 'test_sender'
 
 
@@ -14,19 +13,29 @@ def get_last_block():
 
 def add_block(recipient, tx_amount=1):
     """add a single block"""
-    open_txs.append({
+    global_open_txs.append({
         'sender': global_sender,
         'recipient': recipient,
         'tx_amount': tx_amount
     })
+    mine_block()
 
 
 def mine_block():
     """ Mine a block """
+    global global_open_txs
+
     blockchain.append({
-        'previous_hash': 'placeholder',
-        'txs': open_txs
+        'checkhash': str(get_last_block().values()),
+        'txs': global_open_txs
     })
+    global_open_txs = []
+
+
+def print_blockchain():
+    """ Pretty print """
+    for index, block in enumerate(blockchain):
+        print(index, block)
 
 
 while True:
@@ -47,6 +56,6 @@ while True:
             pass
         else:
             add_block(new_tx_recipient, new_tx_amount)
-        print(blockchain)
+        print_blockchain()
     else:
         print('Invalid amount entered.')
