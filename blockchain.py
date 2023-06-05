@@ -13,6 +13,9 @@ def get_last_block():
 
 def add_block(recipient, tx_amount=1):
     """add a single block"""
+    if not verify_blockchain():
+        return False
+
     global_open_txs.append({
         'sender': global_sender,
         'recipient': recipient,
@@ -24,17 +27,18 @@ def add_block(recipient, tx_amount=1):
 def mine_block():
     """ Mine a block """
     global global_open_txs
+    new_checkhash = str(get_last_block().values())
 
     blockchain.append({
-        'checkhash': str(get_last_block().values()),
+        'checkhash': new_checkhash,
         'txs': global_open_txs
     })
     global_open_txs = []
 
 
-def verify_chain():
+def verify_blockchain():
     """ Make sure checkhash matches actual previous block content  """
-    pass
+    return False
 
 
 def print_blockchain():
@@ -60,7 +64,9 @@ while True:
         if not blockchain:
             pass
         else:
-            add_block(new_tx_recipient, new_tx_amount)
+            if not add_block(new_tx_recipient, new_tx_amount):
+                print('Blockchain cannot be verified. Exiting.')
+                break
         print_blockchain()
     else:
         print('Invalid amount entered.')
