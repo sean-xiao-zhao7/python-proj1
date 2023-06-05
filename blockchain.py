@@ -32,6 +32,11 @@ def mine_block():
     global_open_txs = []
 
 
+def verify_chain():
+    """ Make sure checkhash matches actual previous block content  """
+    pass
+
+
 def print_blockchain():
     """ Pretty print """
     for index, block in enumerate(blockchain):
