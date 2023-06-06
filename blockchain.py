@@ -22,16 +22,17 @@ def add_block(recipient, tx_amount=1):
     global_open_txs.append({
         'sender': global_sender,
         'recipient': recipient,
-        'tx_amount': tx_amount
+        'tx_amount': float(tx_amount)
     })
     mine_block()
-    users.append(recipient)
+    users.add(recipient)
     return True
 
 
 def mine_block():
     """ Mine a block """
     global global_open_txs
+
     new_checkhash = str(get_last_block().values())
 
     blockchain.append({
@@ -62,6 +63,16 @@ def print_blockchain():
         print(index, block)
 
 
+def print_balance(username):
+    """ Print balance of a single user """
+    balance = 0
+    for block in blockchain:
+        for tx in block['txs']:
+            if tx['sender'] == username or tx['recipient'] == username:
+                balance += tx['tx_amount']
+    return balance
+
+
 while True:
     user_input = input('Enter next TX amount or command: ')
 
@@ -69,6 +80,10 @@ while True:
     if not user_input.isdigit():
         if user_input == 'q':
             break
+        elif user_input == 'balance':
+            username = input('Enter username:')
+            if username:
+                print_balance(username)
         else:
             continue
 
