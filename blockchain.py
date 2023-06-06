@@ -63,7 +63,7 @@ def print_blockchain():
         print(index, block)
 
 
-def print_balance(username):
+def get_balance(username):
     """ Print balance of a single user """
     balance = 0
     for block in blockchain:
@@ -78,14 +78,13 @@ while True:
 
     # string value entered
     if not user_input.isdigit():
-        if user_input == 'q':
+        if user_input == 'q' or user_input == 'quit':
             break
-        elif user_input == 'balance':
+        elif user_input == 'b' or user_input == 'balance':
             username = input('Enter username:')
             if username:
-                print_balance(username)
-        else:
-            continue
+                print(get_balance(username))
+        continue
 
     # numeric value entered
     new_tx_amount = float(user_input)
