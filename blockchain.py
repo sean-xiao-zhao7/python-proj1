@@ -69,7 +69,8 @@ def verify_blockchain():
 def print_blockchain():
     """ Pretty print """
     for index, block in enumerate(blockchain):
-        print(index, block)
+        print(index, block['txs'])
+        print('---')
 
 
 def get_balance(username):
