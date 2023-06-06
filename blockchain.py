@@ -1,6 +1,8 @@
+MINING_REWARD = 5.0
 blockchain = [{
     'checkhash': 'genesis',
-    'txs': []
+    'txs': [],
+    'type': 'genesis'
 }]
 global_open_txs = []
 global_sender = 'test_sender'
@@ -19,26 +21,33 @@ def add_block(recipient, tx_amount=1):
     if not verify_blockchain():
         return False
 
-    global_open_txs.append({
-        'sender': global_sender,
-        'recipient': recipient,
-        'tx_amount': float(tx_amount)
-    })
-    mine_block()
+    mine_block(recipient, tx_amount)
     users.add(recipient)
     return True
 
 
-def mine_block():
+def mine_block(recipient, tx_amount):
     """ Mine a block """
     global global_open_txs
 
-    new_checkhash = str(get_last_block().values())
+    global_open_txs.extend([{
+        'sender': global_sender,
+        'recipient': recipient,
+        'tx_amount': float(tx_amount),
+        'type': 'mine'
+    }, {
+        'sender': None,
+        'recipient': global_sender,
+        'tx_amount': MINING_REWARD,
+        'type': 'reward'
+    }])
 
+    new_checkhash = str(get_last_block().values())
     blockchain.append({
         'checkhash': new_checkhash,
         'txs': global_open_txs
     })
+
     global_open_txs = []
 
 
