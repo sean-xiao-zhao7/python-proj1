@@ -4,6 +4,7 @@ blockchain = [{
 }]
 global_open_txs = []
 global_sender = 'test_sender'
+users = {global_sender}
 
 
 def get_last_block():
@@ -13,6 +14,8 @@ def get_last_block():
 
 def add_block(recipient, tx_amount=1):
     """add a single block"""
+    global users
+
     if not verify_blockchain():
         return False
 
@@ -22,6 +25,7 @@ def add_block(recipient, tx_amount=1):
         'tx_amount': tx_amount
     })
     mine_block()
+    users.append(recipient)
     return True
 
 
@@ -45,8 +49,6 @@ def verify_blockchain():
             prev_block = block
             continue
         else:
-            print('----')
-            print(str(prev_block.values()))
             print(block['checkhash'])
             if not str(prev_block.values()) == block['checkhash']:
                 return False
