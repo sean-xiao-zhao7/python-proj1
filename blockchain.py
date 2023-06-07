@@ -53,8 +53,7 @@ def mine_block(recipient, tx_amount):
 
     # hashing
     # new_checkhash = str(get_last_block().values())
-    new_checkhash = hashlib.sha256(json.dumps(
-        get_last_block()).encode()).hexdigest()
+    new_checkhash = generate_hash(get_last_block())
 
     global_open_txs = global_open_txs_copy
     blockchain.append({
@@ -63,6 +62,12 @@ def mine_block(recipient, tx_amount):
     })
 
     global_open_txs = []
+
+
+def generate_hash(block_dict):
+    """ Generate a secure hash for checkhash """
+    return hashlib.sha256(json.dumps(
+        block_dict).encode()).hexdigest()
 
 
 def verify_blockchain():
