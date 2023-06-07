@@ -53,7 +53,8 @@ def mine_block(recipient, tx_amount):
 
     # hashing
     # new_checkhash = str(get_last_block().values())
-    new_checkhash = hashlib.sha256(json.dumps(get_last_block()).encode())
+    new_checkhash = hashlib.sha256(json.dumps(
+        get_last_block()).encode()).hexdigest()
 
     global_open_txs = global_open_txs_copy
     blockchain.append({
