@@ -6,6 +6,7 @@ blockchain = [{
 }]
 global_open_txs = []
 global_sender = 'test_sender'
+global_sender_balance = 0
 users = {global_sender}
 
 
@@ -16,6 +17,9 @@ def get_last_block():
 
 def add_block(recipient, tx_amount=1):
     """add a single block"""
+    if float(tx_amount) > global_sender_balance:
+        return 'Not enough balance.'
+
     global users
 
     if not verify_blockchain():
@@ -103,9 +107,14 @@ while True:
         if not blockchain:
             pass
         else:
-            if not add_block(new_tx_recipient, new_tx_amount):
+            result = add_block(new_tx_recipient, new_tx_amount)
+            if result == 'Not enough balance.':
+                print(
+                    'Your balance of ' + global_sender_balance + ' to send ' + new_tx_amount)
+            elif result == False:
                 print('Blockchain cannot be verified. Exiting.')
                 break
+
         print_blockchain()
     else:
         print('Invalid amount entered.')
