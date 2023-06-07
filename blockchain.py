@@ -1,3 +1,6 @@
+import hashlib
+import json
+
 MINING_REWARD = 5.0
 blockchain = [{
     'checkhash': 'genesis',
@@ -48,7 +51,10 @@ def mine_block(recipient, tx_amount):
         'type': 'reward'
     }])
 
-    new_checkhash = str(get_last_block().values())
+    # hashing
+    # new_checkhash = str(get_last_block().values())
+    new_checkhash = hashlib.sha256(json.dumps(get_last_block()).encode())
+
     global_open_txs = global_open_txs_copy
     blockchain.append({
         'checkhash': new_checkhash,
