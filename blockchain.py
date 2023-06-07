@@ -113,7 +113,7 @@ while True:
             result = add_block(new_tx_recipient, new_tx_amount)
             if result == 'Not enough balance.':
                 print(
-                    'Your balance of ' + str(global_sender_balance) + ' is not enough to send ' + str(new_tx_amount))
+                    f'Your balance of {global_sender_balance} is not enough to send {new_tx_amount}')
                 continue
             elif result == False:
                 print('Blockchain cannot be verified. Exiting.')
