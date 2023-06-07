@@ -34,8 +34,9 @@ def add_block(recipient, tx_amount=1):
 def mine_block(recipient, tx_amount):
     """ Mine a block """
     global global_open_txs
+    global_open_txs_copy = global_open_txs[:]
 
-    global_open_txs.extend([{
+    global_open_txs_copy.extend([{
         'sender': global_sender,
         'recipient': recipient,
         'tx_amount': float(tx_amount),
@@ -48,6 +49,7 @@ def mine_block(recipient, tx_amount):
     }])
 
     new_checkhash = str(get_last_block().values())
+    global_open_txs = global_open_txs_copy
     blockchain.append({
         'checkhash': new_checkhash,
         'txs': global_open_txs
