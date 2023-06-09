@@ -1,5 +1,5 @@
 from pathlib import Path
-from ast import literal_eval
+import json
 
 STORAGE_PATH = 'storage'
 BLOCKCHAIN_PATH = 'storage/blockchain'
@@ -23,7 +23,7 @@ def write_blockchain(blockchain):
     """ Write blockchain to disk """
 
     with open(BLOCKCHAIN_PATH, mode='w') as blockchainFile:
-        blockchainFile.write(str(blockchain))
+        blockchainFile.write(json.dumps(blockchain))
 
 
 def read_blockchain():
@@ -34,10 +34,10 @@ def read_blockchain():
     with open(BLOCKCHAIN_PATH, mode='r') as blockchainFile:
         blockchainString = blockchainFile.readlines()
 
-    return literal_eval(blockchainString)
+    return json.loads(blockchainString[0])
 
 
 def write_open_txs(open_txs):
     """ Write blockchain to disk """
     with open(OPEN_TXS_PATH, mode='w') as openTxsFile:
-        openTxsFile.write(str(open_txs))
+        openTxsFile.write(json.dumps(open_txs))
