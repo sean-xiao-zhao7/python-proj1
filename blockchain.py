@@ -1,6 +1,5 @@
-import hashlib
-import json
 from collections import OrderedDict
+from blockchain_hashlib import generate_hash, verify_proof
 
 MINING_REWARD = 5.0
 blockchain = [{
@@ -67,12 +66,6 @@ def mine_block(recipient, tx_amount):
     global_open_txs = []
 
 
-def generate_hash(block_dict):
-    """ Generate a secure hash for checkhash """
-    return hashlib.sha256(json.dumps(
-        block_dict, sort_keys=True).encode()).hexdigest()
-
-
 def generate_pow():
     """ Generate proof of work. """
     current_chechhash = generate_hash(get_last_block())
@@ -80,14 +73,6 @@ def generate_pow():
     while not verify_proof(global_open_txs, current_chechhash, current_proof_num):
         current_proof_num += 1
     return current_proof_num
-
-
-def verify_proof(txs, last_checkhash, proof_num):
-    """ Verify current proof is valid. """
-    guess = (str(txs) + str(last_checkhash) + str(proof_num)).encode()
-    guess_hash = hashlib.sha256(guess).hexdigest()
-    print(guess_hash)
-    return guess_hash[:2] == '00'
 
 
 def verify_blockchain():
