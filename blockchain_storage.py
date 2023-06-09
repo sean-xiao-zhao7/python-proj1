@@ -1,5 +1,6 @@
 from pathlib import Path
 import json
+from collections import OrderedDict
 
 STORAGE_PATH = 'storage'
 BLOCKCHAIN_PATH = 'storage/blockchain'
@@ -34,7 +35,7 @@ def read_blockchain():
     with open(BLOCKCHAIN_PATH, mode='r') as blockchainFile:
         blockchainString = blockchainFile.readlines()
 
-    return json.loads(blockchainString[0])
+    return json.loads(blockchainString[0], object_pairs_hook=OrderedDict)
 
 
 def write_open_txs(open_txs):
