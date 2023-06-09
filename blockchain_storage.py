@@ -14,7 +14,7 @@ default_blockchain = [{
 
 def make_storage_directories():
     """ Make empty storage directories """
-    if not Path.exists(STORAGE_PATH):
+    if not Path(STORAGE_PATH).exists():
         Path(STORAGE_PATH).mkdir(parents=True, exist_ok=True)
 
 
@@ -27,7 +27,7 @@ def write_blockchain(blockchain):
 
 def read_blockchain():
     """ Read blockchain from disk """
-    if not Path.exists(BLOCKCHAIN_PATH):
+    if not Path(BLOCKCHAIN_PATH).exists():
         return default_blockchain
 
     with open(BLOCKCHAIN_PATH, mode='r') as blockchainFile:
