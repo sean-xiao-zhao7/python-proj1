@@ -1,6 +1,6 @@
 from collections import OrderedDict
 from blockchain_hashlib import generate_hash, verify_proof
-from blockchain_storage import write_blockchain, write_open_txs
+from blockchain_storage import write_blockchain, write_open_txs, make_storage_directories
 
 MINING_REWARD = 5.0
 blockchain = [{
@@ -13,6 +13,8 @@ global_open_txs = []
 global_sender = 'test_sender'
 global_sender_balance = 10
 users = {global_sender}
+
+make_storage_directories()
 
 
 def get_last_block():
@@ -141,6 +143,7 @@ while True:
         print_blockchain()
 
         # write to disk
-        write_blockchain(blockchain, global_open_txs)
+        write_blockchain(blockchain)
+        write_open_txs(global_open_txs)
     else:
         print('Invalid amount entered.')
