@@ -5,7 +5,8 @@ MINING_REWARD = 5.0
 blockchain = [{
     'checkhash': 'genesis',
     'txs': [],
-    'type': 'genesis'
+    'type': 'genesis',
+    'pow_num': 100,
 }]
 global_open_txs = []
 global_sender = 'test_sender'
@@ -99,6 +100,8 @@ def verify_blockchain():
             continue
         else:
             if not generate_hash(prev_block) == block['checkhash']:
+                return False
+            if not verify_proof(block['txs'], block['checkhash'], block['pow_num']):
                 return False
             prev_block = block
     return True
