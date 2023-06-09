@@ -1,5 +1,6 @@
 import hashlib
 import json
+from collections import OrderedDict
 
 MINING_REWARD = 5.0
 blockchain = [{
@@ -40,17 +41,13 @@ def mine_block(recipient, tx_amount):
     global global_open_txs
     global_open_txs_copy = global_open_txs[:]
 
-    global_open_txs_copy.extend([{
-        'sender': global_sender,
-        'recipient': recipient,
-        'tx_amount': float(tx_amount),
-        'type': 'mine'
-    }, {
-        'sender': None,
-        'recipient': global_sender,
-        'tx_amount': MINING_REWARD,
-        'type': 'reward'
-    }])
+    global_open_txs_copy.extend([
+        OrderedDict([('sender', global_sender), ('recipient',
+                    recipient), ('tx_amount', float(tx_amount)), ('type', 'mine')]),
+        OrderedDict([('sender', None), ('recipient', global_sender),
+                    ('tx_amount', MINING_REWARD), ('type', 'reward')])
+
+    ])
 
     # hashing
     # new_checkhash = str(get_last_block().values())
@@ -73,7 +70,7 @@ def mine_block(recipient, tx_amount):
 def generate_hash(block_dict):
     """ Generate a secure hash for checkhash """
     return hashlib.sha256(json.dumps(
-        block_dict).encode()).hexdigest()
+        block_dict, sort_keys=True).encode()).hexdigest()
 
 
 def generate_pow():
