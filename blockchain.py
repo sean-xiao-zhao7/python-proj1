@@ -39,6 +39,9 @@ def mine_block(recipient, tx_amount):
     global global_open_txs
     global_open_txs_copy = global_open_txs[:]
 
+    # Do POW
+    pow_num = generate_pow()
+
     global_open_txs_copy.extend([{
         'sender': global_sender,
         'recipient': recipient,
@@ -58,7 +61,8 @@ def mine_block(recipient, tx_amount):
     global_open_txs = global_open_txs_copy
     blockchain.append({
         'checkhash': new_checkhash,
-        'txs': global_open_txs
+        'txs': global_open_txs,
+        'pow_num': pow_num
     })
 
     global_open_txs = []
