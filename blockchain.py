@@ -1,5 +1,6 @@
 from collections import OrderedDict
 from blockchain_hashlib import generate_hash, verify_proof
+from blockchain_storage import write_blockchain, write_open_txs
 
 MINING_REWARD = 5.0
 blockchain = [{
@@ -138,5 +139,8 @@ while True:
                 break
 
         print_blockchain()
+
+        # write to disk
+        write_blockchain(blockchain, global_open_txs)
     else:
         print('Invalid amount entered.')
