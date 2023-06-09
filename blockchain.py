@@ -98,8 +98,7 @@ def verify_blockchain():
             prev_block = block
             continue
         else:
-            print(block['checkhash'])
-            if not str(prev_block.values()) == block['checkhash']:
+            if not generate_hash(prev_block) == block['checkhash']:
                 return False
             prev_block = block
     return True
