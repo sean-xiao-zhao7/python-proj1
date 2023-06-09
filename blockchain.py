@@ -1,20 +1,16 @@
 from collections import OrderedDict
 from blockchain_hashlib import generate_hash, verify_proof
-from blockchain_storage import write_blockchain, write_open_txs, make_storage_directories
+from blockchain_storage import write_blockchain, write_open_txs, make_storage_directories, read_blockchain
 
 MINING_REWARD = 5.0
-blockchain = [{
-    'checkhash': 'genesis',
-    'txs': [],
-    'type': 'genesis',
-    'pow_num': 100,
-}]
+blockchain = []
 global_open_txs = []
 global_sender = 'test_sender'
 global_sender_balance = 10
 users = {global_sender}
 
 make_storage_directories()
+blockchain = read_blockchain()
 
 
 def get_last_block():
