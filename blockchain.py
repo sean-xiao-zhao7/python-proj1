@@ -10,6 +10,7 @@ global_sender_balance = 10
 users = {global_sender}
 
 make_storage_directories()
+# read blockchain from disk if exists
 blockchain = read_blockchain()
 
 
