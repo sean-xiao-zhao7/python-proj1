@@ -1,4 +1,5 @@
 from pathlib import Path
+from ast import literal_eval
 
 STORAGE_PATH = 'storage'
 BLOCKCHAIN_PATH = 'storage/blockchain'
@@ -31,9 +32,9 @@ def read_blockchain():
         return default_blockchain
 
     with open(BLOCKCHAIN_PATH, mode='r') as blockchainFile:
-        blockchain = blockchainFile.readlines()
+        blockchainString = blockchainFile.readlines()
 
-    return blockchain
+    return literal_eval(blockchainString)
 
 
 def write_open_txs(open_txs):
