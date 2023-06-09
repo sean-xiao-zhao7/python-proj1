@@ -40,9 +40,6 @@ def mine_block(recipient, tx_amount):
     global global_open_txs
     global_open_txs_copy = global_open_txs[:]
 
-    # Do POW
-    pow_num = generate_pow()
-
     global_open_txs_copy.extend([{
         'sender': global_sender,
         'recipient': recipient,
@@ -60,6 +57,10 @@ def mine_block(recipient, tx_amount):
     new_checkhash = generate_hash(get_last_block())
 
     global_open_txs = global_open_txs_copy
+
+    # Do POW
+    pow_num = generate_pow()
+
     blockchain.append({
         'checkhash': new_checkhash,
         'txs': global_open_txs,
@@ -79,7 +80,7 @@ def generate_pow():
     """ Generate proof of work. """
     current_chechhash = generate_hash(get_last_block())
     current_proof_num = 0
-    while verify_proof(global_open_txs, current_chechhash, current_proof_num):
+    while not verify_proof(global_open_txs, current_chechhash, current_proof_num):
         current_proof_num += 1
     return current_proof_num
 
@@ -88,6 +89,7 @@ def verify_proof(txs, last_checkhash, proof_num):
     """ Verify current proof is valid. """
     guess = (str(txs) + str(last_checkhash) + str(proof_num)).encode()
     guess_hash = hashlib.sha256(guess).hexdigest()
+    print(guess_hash)
     return guess_hash[:2] == '00'
 
 
