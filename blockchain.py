@@ -69,9 +69,12 @@ def generate_hash(block_dict):
     return hashlib.sha256(json.dumps(
         block_dict).encode()).hexdigest()
 
-def verify_proof():
+
+def verify_proof(txs, last_checkhash, proof_num):
     """ """
-    pass
+    guess = (str(txs) + str(last_checkhash) + str(proof_num)).encode()
+    guess_hash = hashlib.sha256(guess)
+
 
 def verify_blockchain():
     """ Make sure checkhash matches actual previous block content  """
