@@ -70,10 +70,20 @@ def generate_hash(block_dict):
         block_dict).encode()).hexdigest()
 
 
+def generate_pow():
+    """ Generate proof of work. """
+    current_chechhash = generate_hash(get_last_block())
+    current_proof_num = 0
+    while verify_proof(global_open_txs, current_chechhash, current_proof_num):
+        current_proof_num += 1
+    return current_proof_num
+
+
 def verify_proof(txs, last_checkhash, proof_num):
-    """ """
+    """ Verify current proof is valid. """
     guess = (str(txs) + str(last_checkhash) + str(proof_num)).encode()
     guess_hash = hashlib.sha256(guess)
+    return guess_hash[:2] == '00'
 
 
 def verify_blockchain():
