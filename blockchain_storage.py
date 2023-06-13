@@ -1,9 +1,7 @@
 from pathlib import Path
 import json
 from collections import OrderedDict
-from sys import path
-path.append('class')
-from block import Block
+from classes.block import Block
 
 STORAGE_PATH = 'storage'
 BLOCKCHAIN_PATH = 'storage/blockchain'
