@@ -1,4 +1,4 @@
-from blockchain import Blockchain
+from classes.blockchain import Blockchain
 
 if __name__ == '__main__':
 
