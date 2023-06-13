@@ -22,6 +22,10 @@ class Blockchain:
         self.blockchain = read_blockchain()
         print("Blockchain loaded from disk.")
 
+    def save_blockchain_disk(self):
+        write_blockchain(self.blockchain)
+        write_open_txs(self.global_open_txs)
+
     def __repr__(self):
         for index, block in enumerate(self.blockchain):
             print(index, block)

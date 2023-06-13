@@ -1,17 +1,17 @@
 from pathlib import Path
 import json
 from collections import OrderedDict
+from sys import path
+path.append('class')
+from block import Block
 
 STORAGE_PATH = 'storage'
 BLOCKCHAIN_PATH = 'storage/blockchain'
 OPEN_TXS_PATH = 'storage/open_txs'
 
-default_blockchain = [{
-    'checkhash': 'genesis',
-    'txs': [],
-    'type': 'genesis',
-    'pow_num': 100,
-}]
+default_blockchain = [
+    Block.get_genesis_block()
+]
 
 
 def make_storage_directories():
