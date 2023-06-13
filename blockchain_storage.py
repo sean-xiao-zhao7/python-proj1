@@ -39,6 +39,7 @@ def read_blockchain():
             blockchainString = blockchainFile.readlines()
     except IOError:
         print('Could not read blockchain from disk.')
+        return default_blockchain
 
     return json.loads(blockchainString[0], object_pairs_hook=OrderedDict)
 
