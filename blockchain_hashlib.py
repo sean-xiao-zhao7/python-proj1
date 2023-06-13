@@ -5,7 +5,7 @@ import json
 def generate_hash(block_dict):
     """ Generate a secure hash for checkhash """
     return hashlib.sha256(json.dumps(
-        block_dict, sort_keys=True).encode()).hexdigest()
+        block_dict.__dict__.copy(), sort_keys=True).encode()).hexdigest()
 
 
 def verify_proof(txs, last_checkhash, proof_num):
