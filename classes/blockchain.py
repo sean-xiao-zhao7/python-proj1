@@ -18,8 +18,13 @@ class Blockchain:
         make_storage_directories()
         self.load_blockchain_disk()
 
+    def is_empty(self):
+        return not self.blockchain
+
     def load_blockchain_disk(self):
         self.blockchain = read_blockchain()
+        for block in self.blockchain:
+            print(block)
         print("Blockchain loaded from disk.")
 
     def save_blockchain_disk(self):
@@ -64,11 +69,11 @@ class Blockchain:
         # Do POW
         pow_num = self.generate_pow()
 
-        self.blockchain.append({
-            "checkhash": new_checkhash,
-            "txs": self.global_open_txs,
-            "pow_num": pow_num
-        })
+        self.blockchain.append(Block(
+            new_checkhash,
+            self.global_open_txs,
+            pow_num
+        ))
 
         self.global_open_txs = []
 
@@ -88,9 +93,9 @@ class Blockchain:
                 prev_block = block
                 continue
             else:
-                if not generate_hash(prev_block) == block["checkhash"]:
+                if not generate_hash(prev_block) == block.checkhash:
                     return False
-                if not verify_proof(block["txs"], block["checkhash"], block["pow_num"]):
+                if not verify_proof(block.txs, block.checkhash, block.pow_num):
                     return False
                 prev_block = block
         return True
@@ -99,7 +104,7 @@ class Blockchain:
         """ Print balance of a single user """
         balance = 0
         for block in self.blockchain:
-            for tx in block["txs"]:
+            for tx in block.txs:
                 if tx["sender"] == username or tx["recipient"] == username:
                     balance += tx["tx_amount"]
         return balance
