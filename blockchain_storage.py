@@ -23,22 +23,30 @@ def make_storage_directories():
 def write_blockchain(blockchain):
     """ Write blockchain to disk """
 
-    with open(BLOCKCHAIN_PATH, mode='w') as blockchainFile:
-        blockchainFile.write(json.dumps(blockchain))
+    try:
+        with open(BLOCKCHAIN_PATH, mode='w') as blockchainFile:
+            blockchainFile.write(json.dumps(blockchain))
+    except IOError:
+        print('Could not write blockchain.')
 
 
 def read_blockchain():
     """ Read blockchain from disk """
     if not Path(BLOCKCHAIN_PATH).exists():
         return default_blockchain
-
-    with open(BLOCKCHAIN_PATH, mode='r') as blockchainFile:
-        blockchainString = blockchainFile.readlines()
+    try:
+        with open(BLOCKCHAIN_PATH, mode='r') as blockchainFile:
+            blockchainString = blockchainFile.readlines()
+    except IOError:
+        print('Could not read blockchain from disk.')
 
     return json.loads(blockchainString[0], object_pairs_hook=OrderedDict)
 
 
 def write_open_txs(open_txs):
     """ Write blockchain to disk """
-    with open(OPEN_TXS_PATH, mode='w') as openTxsFile:
-        openTxsFile.write(json.dumps(open_txs))
+    try:
+        with open(OPEN_TXS_PATH, mode='w') as openTxsFile:
+            openTxsFile.write(json.dumps(open_txs))
+    except IOError:
+        print('Could not read open txs from disk.')
