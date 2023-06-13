@@ -1,7 +1,7 @@
 from collections import OrderedDict
 from blockchain_hashlib import generate_hash, verify_proof
 from blockchain_storage import write_blockchain, write_open_txs, make_storage_directories, read_blockchain
-from block import Block
+from classes.block import Block
 
 
 class Blockchain:

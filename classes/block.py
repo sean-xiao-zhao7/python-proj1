@@ -5,7 +5,7 @@ class Block:
         self.pow_num = pow_num
 
     @staticmethod
-    def get_genesis_block(self):
+    def get_genesis_block():
         return {
             'checkhash': 'genesis',
             'txs': [],
