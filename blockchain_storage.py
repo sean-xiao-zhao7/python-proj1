@@ -31,15 +31,16 @@ def write_blockchain(blockchain):
 def read_blockchain():
     """ Read blockchain from disk """
     if not Path(BLOCKCHAIN_PATH).exists():
+        print('No blockchain on disk. Initialized new blockchain.')
         return default_blockchain
     try:
         with open(BLOCKCHAIN_PATH, mode='r') as blockchainFile:
             blockchainString = blockchainFile.readlines()
     except IOError:
-        print('Could not read blockchain from disk.')
+        print('Error reading blockchain from disk.')
         return default_blockchain
-
-    return json.loads(blockchainString[0], object_pairs_hook=OrderedDict)
+    print("Blockchain loaded from disk.")
+    return json.loads(blockchainString[0], object_hook=Block)
 
 
 def write_open_txs(open_txs):

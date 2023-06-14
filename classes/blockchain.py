@@ -23,9 +23,6 @@ class Blockchain:
 
     def load_blockchain_disk(self):
         self.blockchain = read_blockchain()
-        for block in self.blockchain:
-            print(block)
-        print("Blockchain loaded from disk.")
 
     def save_blockchain_disk(self):
         write_blockchain(self.blockchain)
