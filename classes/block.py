@@ -15,4 +15,4 @@ class Block:
         )
 
     def __repr__(self):
-        return self.txs
+        return str(self.txs)

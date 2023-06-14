@@ -23,7 +23,8 @@ def write_blockchain(blockchain):
 
     try:
         with open(BLOCKCHAIN_PATH, mode='w') as blockchainFile:
-            blockchainFile.write(json.dumps(blockchain))
+            blockchainFile.write(json.dumps(blockchain, default=lambda o: o.__dict__,
+                                            sort_keys=True, indent=4))
     except IOError:
         print('Could not write blockchain.')
 
