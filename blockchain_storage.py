@@ -1,5 +1,6 @@
 from pathlib import Path
 import json
+from collections import OrderedDict
 from classes.block import Block
 
 STORAGE_PATH = 'storage'
@@ -23,7 +24,7 @@ def write_blockchain(blockchain):
     try:
         with open(BLOCKCHAIN_PATH, mode='w') as blockchainFile:
             blockchainFile.write(json.dumps(blockchain, default=lambda o: o.__dict__,
-                                            sort_keys=True))
+                                            ))
     except IOError:
         print('Could not write blockchain.')
 
@@ -43,11 +44,15 @@ def read_blockchain():
         print('No blockchain on disk. Initialized new blockchain.')
         return default_blockchain
     print("Blockchain loaded from disk.")
-    blockchainDictList = json.loads(blockchainString[0])
+
+    # change dict to Block
+    blockchainDictList = json.loads(
+        blockchainString[0], object_pairs_hook=OrderedDict)
     blockchainBlockList = []
     for blockDict in blockchainDictList:
         blockchainBlockList.append(Block(
             blockDict['checkhash'], blockDict['txs'], blockDict['type'], blockDict['pow_num']))
+
     return blockchainBlockList
 
 

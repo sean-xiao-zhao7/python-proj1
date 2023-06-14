@@ -3,6 +3,7 @@ from classes.blockchain import Blockchain
 if __name__ == '__main__':
 
     blockchain = Blockchain()
+    print(blockchain)
 
     while True:
         user_input = input("Enter next TX amount or command: ")

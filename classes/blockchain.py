@@ -54,7 +54,6 @@ class Blockchain:
                         recipient), ("tx_amount", float(tx_amount)), ("type", "mine")]),
             OrderedDict([("sender", None), ("recipient", self.global_sender),
                         ("tx_amount", self.mining_reward), ("type", "reward")])
-
         ])
 
         # hashing
