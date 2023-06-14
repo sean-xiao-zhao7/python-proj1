@@ -108,6 +108,7 @@ class Blockchain:
         return balance
 
     def __repr__(self):
+        result = ''
         for index, block in enumerate(self.blockchain):
-            print(index, block)
-            print("---")
+            result += f'{index} {block}\n---\n'
+        return result
