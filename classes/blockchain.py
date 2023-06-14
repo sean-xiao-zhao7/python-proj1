@@ -69,6 +69,7 @@ class Blockchain:
         self.blockchain.append(Block(
             new_checkhash,
             self.global_open_txs,
+            'mine',
             pow_num
         ))
 
