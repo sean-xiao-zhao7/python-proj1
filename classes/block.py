@@ -1,6 +1,6 @@
 class Block:
     def __init__(self, checkhash, txs, type, pow_num):
-        self.chechhash = checkhash
+        self.checkhash = checkhash
         self.txs = txs
         self.type = type
         self.pow_num = pow_num

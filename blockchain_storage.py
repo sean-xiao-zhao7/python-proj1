@@ -23,7 +23,7 @@ def write_blockchain(blockchain):
     try:
         with open(BLOCKCHAIN_PATH, mode='w') as blockchainFile:
             blockchainFile.write(json.dumps(blockchain, default=lambda o: o.__dict__,
-                                            sort_keys=True, indent=4))
+                                            sort_keys=True))
     except IOError:
         print('Could not write blockchain.')
 
@@ -43,7 +43,12 @@ def read_blockchain():
         print('No blockchain on disk. Initialized new blockchain.')
         return default_blockchain
     print("Blockchain loaded from disk.")
-    return json.loads(blockchainString[0], object_hook=Block)
+    blockchainDictList = json.loads(blockchainString[0])
+    blockchainBlockList = []
+    for blockDict in blockchainDictList:
+        blockchainBlockList.append(Block(
+            blockDict['checkhash'], blockDict['txs'], blockDict['type'], blockDict['pow_num']))
+    return blockchainBlockList
 
 
 def write_open_txs(open_txs):

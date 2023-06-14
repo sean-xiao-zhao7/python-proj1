@@ -77,9 +77,9 @@ class Blockchain:
 
     def generate_pow(self):
         """ Generate proof of work. """
-        current_chechhash = generate_hash(self.get_last_block())
+        current_checkhash = generate_hash(self.get_last_block())
         current_proof_num = 0
-        while not verify_proof(self.global_open_txs, current_chechhash, current_proof_num):
+        while not verify_proof(self.global_open_txs, current_checkhash, current_proof_num):
             current_proof_num += 1
         return current_proof_num
 

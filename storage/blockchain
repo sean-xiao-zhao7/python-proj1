@@ -1,0 +1,1 @@
+[{"checkhash": "genesis", "pow_num": 100, "txs": [], "type": "genesis"}, {"checkhash": "9a5443c79354ca4f99337e1bc404eb53ac6e4b9790c444a9d68f16f8bc2f2d9e", "pow_num": 211, "txs": [{"recipient": "1", "sender": "test_sender", "tx_amount": 1.0, "type": "mine"}, {"recipient": "test_sender", "sender": null, "tx_amount": 5.0, "type": "reward"}], "type": "mine"}]
