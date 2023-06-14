@@ -1,6 +1,5 @@
 from pathlib import Path
 import json
-from collections import OrderedDict
 from classes.block import Block
 
 STORAGE_PATH = 'storage'
@@ -39,6 +38,9 @@ def read_blockchain():
             blockchainString = blockchainFile.readlines()
     except IOError:
         print('Error reading blockchain from disk.')
+        return default_blockchain
+    if not blockchainString:
+        print('No blockchain on disk. Initialized new blockchain.')
         return default_blockchain
     print("Blockchain loaded from disk.")
     return json.loads(blockchainString[0], object_hook=Block)
