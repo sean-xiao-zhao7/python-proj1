@@ -19,17 +19,6 @@ def make_storage_directories():
         Path(STORAGE_PATH).mkdir(parents=True, exist_ok=True)
 
 
-def write_blockchain(blockchain):
-    """ Write blockchain to disk """
-
-    try:
-        with open(BLOCKCHAIN_PATH, mode='w') as blockchainFile:
-            blockchainFile.write(json.dumps(blockchain, default=lambda o: o.__dict__,
-                                            ))
-    except IOError:
-        print('Could not write blockchain.')
-
-
 def read_blockchain():
     """ Read blockchain from disk """
     if not Path(BLOCKCHAIN_PATH).exists():
@@ -57,19 +46,32 @@ def read_blockchain():
     return blockchainBlockList
 
 
+def write_blockchain(blockchain):
+    """ Write blockchain to disk """
+
+    try:
+        with open(BLOCKCHAIN_PATH, mode='w') as blockchainFile:
+            blockchainFile.write(json.dumps(blockchain, default=lambda o: o.__dict__,
+                                            ))
+    except IOError:
+        print('Could not write blockchain.')
+
+
 def write_open_txs(open_txs):
     """ Write blockchain to disk """
-    try:
-        with open(OPEN_TXS_PATH, mode='w') as openTxsFile:
-            openTxsFile.write(json.dumps(open_txs))
-    except IOError:
-        print('Could not write open txs to disk.')
+    write_file(open_txs, OPEN_TXS_PATH)
 
 
 def write_peer_nodes(peer_nodes):
     """ Write peer nodes to disk """
+    write_file(peer_nodes, PEER_NODES_PATH)
+
+
+def write_file(data, path):
+    """ Write blockchain to disk """
+
     try:
-        with open(PEER_NODES_PATH, mode='w') as peerNodesFile:
-            peerNodesFile.write(json.dumps(peer_nodes))
+        with open(path, mode='w') as fileBuffer:
+            fileBuffer.write(json.dumps(fileBuffer))
     except IOError:
-        print('Could not write peer nodes to disk.')
+        print('Could not write data.')
