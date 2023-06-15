@@ -6,6 +6,7 @@ from classes.block import Block
 STORAGE_PATH = 'storage'
 BLOCKCHAIN_PATH = 'storage/blockchain'
 OPEN_TXS_PATH = 'storage/open_txs'
+PEER_NODES_PATH = 'storage/peer_nodes'
 
 default_blockchain = [
     Block.get_genesis_block()
@@ -62,4 +63,13 @@ def write_open_txs(open_txs):
         with open(OPEN_TXS_PATH, mode='w') as openTxsFile:
             openTxsFile.write(json.dumps(open_txs))
     except IOError:
-        print('Could not read open txs from disk.')
+        print('Could not write open txs to disk.')
+
+
+def write_peer_nodes(peer_nodes):
+    """ Write peer nodes to disk """
+    try:
+        with open(PEER_NODES_PATH, mode='w') as peerNodesFile:
+            peerNodesFile.write(json.dumps(peer_nodes))
+    except IOError:
+        print('Could not write peer nodes to disk.')
