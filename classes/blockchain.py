@@ -19,7 +19,10 @@ class Blockchain:
         self.load_blockchain_disk()
 
         # node network
-        self.peer_nodes = set()
+        self.__peer_nodes = set()
+
+    def add_peer_node(self, node):
+        self.__peer_nodes.append(node)
 
     def is_empty(self):
         return not self.blockchain
