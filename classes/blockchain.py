@@ -18,6 +18,9 @@ class Blockchain:
         make_storage_directories()
         self.load_blockchain_disk()
 
+        # node network
+        self.peer_nodes = set()
+
     def is_empty(self):
         return not self.blockchain
 
