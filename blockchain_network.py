@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
 from classes.blockchain import Blockchain
 
@@ -13,7 +13,9 @@ def get_ui():
 
 @app.route('/blockchain', methods=['GET'])
 def get_blockchain():
-    return Blockchain()
+    c = Blockchain().blockchain
+    result = [block.__dict__.copy() for block in c]
+    return jsonify(result), 200
 
 
 if __name__ == '__main__':
